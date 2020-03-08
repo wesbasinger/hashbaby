@@ -1,6 +1,8 @@
 from Crypto.Hash import MD2
 import hashlib
 
+f = open("six-letter-words.txt")
+
 configs = []
 
 for i in range(1, 64):
@@ -29,8 +31,6 @@ def mixup(word):
 
     return combos
 
-sphinxi = mixup("sphinx")
-
 def hash(text):
 
     bin_text = bytes(text, "ascii")
@@ -47,6 +47,12 @@ def hash(text):
 
     return md5.hexdigest()
 
-for combo in mixup("sphinx"):
+for word in f.read().splitlines():
 
-    print(hash(combo))
+    combos = mixup(word)
+
+    for combo in combos:
+
+        if hash(combo) == "e24b02c81cabe0d4af45f9ceaccde2c7":
+
+            print("SOLUTION is..." + combo)
